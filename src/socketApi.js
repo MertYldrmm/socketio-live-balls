@@ -20,14 +20,14 @@ io.on('connection', (socket) => {
 
     const userData = Object.assign(data, defaultData);
     users[socket.id] = userData;
-    console.log(users);
+
     socket.broadcast.emit('new user', users[socket.id]);
+    socket.emit('initPlayers', users);
   });
   
   socket.on('disconnect', () => {
     socket.broadcast.emit('disUser', users[socket.id]);  
     delete users[socket.id];
-    console.log(users);
   });
 
 });
