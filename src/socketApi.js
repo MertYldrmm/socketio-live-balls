@@ -42,7 +42,8 @@ io.on('connection', (socket) => {
   });
 
   socket.on('new message', (data) => {
-    socket.broadcast.emit('newMessage', data);
+    const messageData = Object.assign( {socketId: socket.id}, data);
+    socket.broadcast.emit('newMessage', messageData);
   });
 
 });
