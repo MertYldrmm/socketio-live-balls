@@ -10,7 +10,7 @@ const users = { };
 
 
 io.on('connection', (socket) => {
-  console.log('a user connected');
+  //console.log('a user connected');
 
   socket.on('new user', (data) => {
     const defaultData = {
@@ -39,6 +39,10 @@ io.on('connection', (socket) => {
     users[socket.id].position.y = data.y;
 
     socket.broadcast.emit('animate', { socketId: socket.id, x: data.x, y: data.y});
+  });
+
+  socket.on('new message', (data) => {
+    socket.broadcast.emit('newMessage', data);
   });
 
 });
